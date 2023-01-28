@@ -14,7 +14,6 @@ count_house = "https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/coun
 # Самокаты:
 count_elektrotransport = "https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/count?cat=4160"
 
-
 # Создаем бота
 bot = telebot.TeleBot('5108887133:AAHGUwU9cl_NJl-dxmX5hCfly05ICl2OLEA')
 
@@ -64,10 +63,11 @@ def start(message):
     # markup.add(telebot.types.InlineKeyboardButton(text='Дома и дачи', callback_data='Дома и дачи'))
     # markup.add(telebot.types.InlineKeyboardButton(text='Гаражи', callback_data='Гаражи'))
 
-    msg = bot.send_message(message.chat.id, '\nНажми: \nДома и дачи - для отслеживания свежих предложений в этой категории\n'
-                                      'Гаражи — для отслеживания свежих предложений в этой категории\n'
-                                            'Самокаты - для отслеживания предложений по электротранспорту ',
-                     reply_markup=markup)
+    msg = bot.send_message(message.chat.id,
+                           '\nНажми: \nДома и дачи - для отслеживания свежих предложений в этой категории\n'
+                           'Гаражи — для отслеживания свежих предложений в этой категории\n'
+                           'Самокаты - для отслеживания предложений по электротранспорту ',
+                           reply_markup=markup)
     bot.register_next_step_handler(msg, handle_text)
 
 
@@ -87,27 +87,19 @@ def stop(message, res=False):
 def handle_text(message):
     global user
 
-    markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    markup1.add(types.KeyboardButton('/stop'))
-    bot.register_next_step_handler(message, operation)
+    # bot.register_next_step_handler(message, operation)
     if message.text.strip() == 'Дома и дачи':
-        # bot.send_message(message.chat.id, 'Будем отслеживать дома и дачи', reply_markup=markup1)
         user.get_category_count_url(count_house)
         user.category_url = 'houses'
         user.is_working = True
-        msg = bot.send_message(message.chat.id, "Для подтверждения отправьте '1'", reply_markup=markup1)
-
-
-        # bot.register_next_step_handler(message, operation)
+        operation(message)
 
 
     elif message.text.strip() == 'Гаражи':
-        # bot.register_next_step_handler(message, callback=operation)
-        # bot.send_message(message.chat.id, 'Будем отслеживать гаражи', reply_markup=markup1)
         user.get_category_count_url(count_garages)
         user.category_url = 'garages'
         user.is_working = True
-        msg = bot.send_message(message.chat.id, "Для подтверждения отправьте '1'", reply_markup=markup1)
+        operation(message)
 
     elif message.text.strip() == 'Самокаты':
         # bot.register_next_step_handler(message, callback=operation)
@@ -115,11 +107,14 @@ def handle_text(message):
         user.get_category_count_url(count_elektrotransport)
         user.category_url = 'elektrotransport'
         user.is_working = True
-        msg = bot.send_message(message.chat.id, "Для подтверждения отправьте '1'", reply_markup=markup1)
+        # msg = bot.send_message(message.chat.id, "Для подтверждения отправьте '1'", reply_markup=markup1)
+        operation(message)
 
 
 def operation(message):
-    msg_oper = bot.send_message(message.chat.id, "Отслеживание началось")
+    markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    markup1.add(types.KeyboardButton('/stop'))
+    msg_oper = bot.send_message(message.chat.id, "Отслеживание началось", reply_markup=markup1)
     while user.is_working == True:
 
         a = main.Operator(message.chat.id, user.category_count_url, user.category_url)
@@ -133,16 +128,16 @@ def operation(message):
                     a.write_to_table(product)
                     if product.price_byn == 'Договорная':
                         bot.send_message(message.chat.id,
-                                         f'{product.images}\n{product.link}\n{product.address}\n{product.price_byn}')
+                                         f'{product.images}\n{product.name_object}\n{product.link}\n{product.address}\n{product.price_byn}')
                     else:
                         bot.send_message(message.chat.id,
-                                         f'{product.images}\n{product.link}\n{product.address}\n{product.price_byn} руб.\n{product.price_usd}$')
+                                         f'{product.images}\n{product.name_object}\n{product.link}\n{product.address}\n{product.price_byn} руб.\n{product.price_usd}$')
         user.coun += 1
         print(user.coun)
         time.sleep(60)
         if user.coun % 60 == 0:
             bot.send_message(message.chat.id,
-                                    f'Цикл выполнен {user.coun} раз')
+                             f'Цикл выполнен {user.coun} раз')
         bot.register_next_step_handler(msg_oper, start)
 
 
@@ -151,7 +146,6 @@ def operation(message):
 
 # гаражи:  https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1030&cur=BYR&gbx=b%3A28.549494959716743%2C55.49950816218998%2C28.709140040283156%2C55.60771349172756&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&lang=ru&size=30&typ=sell
 # count гаражи: https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/count?cat=1030&cur=BYR&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&prn=1000&size=30&sort=lst.d&typ=sell
-
 
 
 # Запускаем бота

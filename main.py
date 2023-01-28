@@ -45,18 +45,17 @@ class Page():
 
 class Product():
     '''этот класс получает все аттрибуты объявления'''
-    dv = None
 
-    def __init__(self, id=dv, link=dv, deal_type=dv, address=dv, price_byn=dv, price_usd=dv, name=dv,
-                 images=dv, phone=dv):
-        self.id = id
-        self.link = link
-        self.deal_type = deal_type
-        self.address = address
-        self.price_byn = price_byn
-        self.price_usd = price_usd
-        self.name = name
-        self.images = images
+    def __init__(self):
+        self.id = ''
+        self.link = ''
+        self.deal_type = ''
+        self.address = ''
+        self.price_byn = ''
+        self.price_usd = ''
+        self.name = ''
+        self.images = ''
+        self.name_object = ''
         # self.phone = phone
 
     def get_products_attrs(self, attrs):
@@ -73,6 +72,9 @@ class Product():
                 self.name = i['v']
             elif i['p'] == 'address':
                 self.address = i['v']
+
+        # определяем название объявления:
+        self.name_object = attrs['subject']
 
                 # определяем цену:
         if attrs['price_byn'] == '0':
