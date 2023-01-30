@@ -50,7 +50,7 @@ def start(message):
     global user
     user = User(message.chat.id)
 
-    # Добавляем две кнопки
+    # Добавляем кнопки
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     item1 = types.KeyboardButton("Дома и дачи")
     item2 = types.KeyboardButton("Гаражи")
@@ -86,7 +86,8 @@ def stop(message, res=False):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     global user
-
+    markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    markup1.add(types.KeyboardButton('/stop'))
     # bot.register_next_step_handler(message, operation)
     if message.text.strip() == 'Дома и дачи':
         user.get_category_count_url(count_house)
@@ -102,19 +103,22 @@ def handle_text(message):
         operation(message)
 
     elif message.text.strip() == 'Самокаты':
+        msg_oper = bot.send_message(message.chat.id, "Отслеживание началось", reply_markup=markup1)
+        bot.register_next_step_handler(msg_oper, start)
         # bot.register_next_step_handler(message, callback=operation)
         # bot.send_message(message.chat.id, 'Будем отслеживать гаражи', reply_markup=markup1)
         user.get_category_count_url(count_elektrotransport)
         user.category_url = 'elektrotransport'
         user.is_working = True
+        time.sleep(10)
         # msg = bot.send_message(message.chat.id, "Для подтверждения отправьте '1'", reply_markup=markup1)
         operation(message)
 
 
 def operation(message):
-    markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    markup1.add(types.KeyboardButton('/stop'))
-    msg_oper = bot.send_message(message.chat.id, "Отслеживание началось", reply_markup=markup1)
+    # markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    # markup1.add(types.KeyboardButton('/stop'))
+    # msg_oper = bot.send_message(message.chat.id, "Отслеживание началось", reply_markup=markup1)
     while user.is_working == True:
 
         a = main.Operator(message.chat.id, user.category_count_url, user.category_url)
@@ -134,11 +138,12 @@ def operation(message):
                                          f'{product.images}\n{product.name_object}\n{product.link}\n{product.address}\n{product.price_byn} руб.\n{product.price_usd}$')
         user.coun += 1
         print(user.coun)
+        print()
         time.sleep(60)
         if user.coun % 60 == 0:
             bot.send_message(message.chat.id,
                              f'Цикл выполнен {user.coun} раз')
-        bot.register_next_step_handler(msg_oper, start)
+        # bot.register_next_step_handler(msg_oper, start)
 
 
 # https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1030&cur=BYR&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&lang=ru&size=30&typ=sell
