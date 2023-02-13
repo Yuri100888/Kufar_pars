@@ -116,7 +116,7 @@ class Operator():
             self.products_page.get_houses()
         elif self.category_url == "elektrotransport":
             self.products_page.get_elektrotransport()
-        print(self.products_page.count)
+
 
     def create_table(self):
         conn = sqlite3.connect('products.db')

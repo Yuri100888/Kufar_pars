@@ -12,7 +12,7 @@ headers = {
                   'Chrome/108.0.0.0 YaBrowser/23.1.1.1138 Yowser/2.5 Safari/537.36'}
 
 categories = {"elektrotransport": {"url": "https://www.kufar.by/l/elektrotransport"}}
-
+user = {'is_working':True}
 
 # Команда start
 @bot.message_handler(commands=["start"])
@@ -32,6 +32,11 @@ def start(message):
 
 
 def change_category(message):
+    if message.text.strip() == 'Самокаты':
+        get_electrotransport(message, categories['elektrotransport']['url'], 'elektrotransport')
+
+
+def get_electrotransport(message, url, category):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     item1 = types.KeyboardButton("Стоп")
     markup.add(item1)
@@ -39,15 +44,9 @@ def change_category(message):
                            f'Отслеживание "{message.text}" началось! \n'
                            'Для остановки отслеживания нажмите "Стоп',
                            reply_markup=markup)
-    if message.text.strip() == 'Самокаты':
-        get_electrotransport(message, categories['elektrotransport']['url'], 'elektrotransport')
-
+    create_table(f'{category}_{str(message.chat.id)}')
+    count = 1
     bot.register_next_step_handler(msg, start)
-
-
-def get_electrotransport(message, url, category):
-    create_table(f'{category }_{str(message.chat.id)}')
-    count = 0
     while True:
         req = requests.get(url, headers=headers).text
         soup = BeautifulSoup(req, 'html.parser')
@@ -71,10 +70,13 @@ def get_electrotransport(message, url, category):
             else:
                 continue
         print(count)
+        count += 1
         time.sleep(60)
         if count % 60 == 0:
             bot.send_message(message.chat.id,
                              f'Цикл выполнен {count} раз')
+
+
 
 def create_table(name_table):
     conn = sqlite3.connect('products.db')
@@ -105,6 +107,7 @@ def get_idies(message):
     for id in idies_list:
         idies_list_1.append(id[0])
     return idies_list_1
+
 
 # Запускаем бота
 bot.polling(none_stop=True, interval=0)

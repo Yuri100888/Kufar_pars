@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="">
+    <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак">
+      <change afterPath="$PROJECT_DIR$/.idea/Kufar_pars_ispr.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Kufar_pars.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Kufar_pars.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Kufar_pars.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prob.py" beforeDir="false" afterPath="$PROJECT_DIR$/prob.py" afterDir="false" />
@@ -42,7 +43,7 @@
 }</component>
   <component name="RunManager" selected="Python.telegram">
     <configuration name="prob" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Kufar_pars" />
+      <module name="Kufar_pars_ispr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -63,7 +64,7 @@
       <method v="2" />
     </configuration>
     <configuration name="teleg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Kufar_pars" />
+      <module name="Kufar_pars_ispr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -84,7 +85,7 @@
       <method v="2" />
     </configuration>
     <configuration name="telegram" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Kufar_pars" />
+      <module name="Kufar_pars_ispr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -138,5 +139,7 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
+    <MESSAGE value="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак" />
+    <option name="LAST_COMMIT_MESSAGE" value="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак" />
   </component>
 </project>
