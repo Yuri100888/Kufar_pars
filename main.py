@@ -14,23 +14,19 @@ class Page():
     def __init__(self, page=None):
         self.page = page
         self.count = 1
-        self.garages = f'https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1030&cur=BYR&gbx=b%3A28.549494959716743%2C55.49950816218998%2C28.709140040283156%2C55.60771349172756&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&lang=ru&size={self.count}&typ=sell'
-        # self.houses = f"https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&lang=ru&size={self.count}&typ=sell"
 
     def get_count(self, url_count):
         '''получаем количество подходящих объявлений'''
-
-        # count_product = requests.get(
-        #     "https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/count?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&size=30&typ=sell")
         self.count = requests.get(url_count).json()['count']
-        # self.count = count_product.json()['count']
 
     def get_houses(self):
         '''получаем список объявлений в формате jcon'''
-        # self.page = requests.get(
-        #     f"https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&lang=ru&size={self.count}&typ=sell").json()
         self.page = requests.get(
             f"https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&lang=ru&size={self.count}&typ=sell").json()
+
+    def get_apartments(self):
+        self.page = requests.get(
+            f'https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&lang=ru&size={self.count}&typ=sell').json()
 
     def get_garages(self):
         '''получаем список объявлений в формате jcon'''
@@ -76,7 +72,7 @@ class Product():
         # определяем название объявления:
         self.name_object = attrs['subject']
 
-                # определяем цену:
+        # определяем цену:
         if attrs['price_byn'] == '0':
             self.price_byn = 'Договорная'
             self.price_usd = None
@@ -116,7 +112,8 @@ class Operator():
             self.products_page.get_houses()
         elif self.category_url == "elektrotransport":
             self.products_page.get_elektrotransport()
-
+        elif self.category_url == 'apartaments':
+            self.products_page.get_apartments()
 
     def create_table(self):
         conn = sqlite3.connect('products.db')
