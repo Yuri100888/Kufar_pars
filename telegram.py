@@ -123,14 +123,23 @@ def operation(message):
             if user.is_working == True:
                 product = main.Product()
                 product.get_products_attrs(attrs)
-                if product.id not in a.get_idies():
+                if product.products_attrs['id'] not in a.get_idies():
                     a.write_to_table(product)
-                    if product.price_byn == 'Договорная':
+                    if product.products_attrs['price_byn'] == 'Договорная':
                         bot.send_message(message.chat.id,
-                                         f'{product.images}\n{product.name_object}\n{product.link}\n{product.address}\n{product.price_byn}')
+                                         f'{product.products_attrs["images"]}\n\n'
+                                         f'Товар: {product.products_attrs["name_object"]}\n'
+                                         f'Ссылка: {product.products_attrs["link"]}\n'
+                                         f'Адрес: {product.products_attrs["address"]}\n'
+                                         f'Цена: {product.products_attrs["price_byn"]}')
                     else:
                         bot.send_message(message.chat.id,
-                                         f'{product.images}\n{product.name_object}\n{product.link}\n{product.address}\n{product.price_byn} руб.\n{product.price_usd}$')
+                                         f'{product.products_attrs["images"]}\n\n'
+                                         f'Товар: {product.products_attrs["name_object"]}\n'
+                                         f'Ссылка: {product.products_attrs["link"]}\n'
+                                         f'Адрес: {product.products_attrs["address"]}\n'
+                                         f'Цена: {product.products_attrs["price_byn"]} руб.\n'
+                                         f'{product.products_attrs["price_usd"]}$')
         user.coun += 1
         print(user.coun)
         print()

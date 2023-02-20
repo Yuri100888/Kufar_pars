@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак">
+    <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products.db" beforeDir="false" afterPath="$PROJECT_DIR$/products.db" afterDir="false" />
@@ -120,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676282132755</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена.">
+      <created>1676626184704</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1676626184704</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +146,7 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак" />
-    <option name="LAST_COMMIT_MESSAGE" value="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак" />
+    <MESSAGE value="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена." />
+    <option name="LAST_COMMIT_MESSAGE" value="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена." />
   </component>
 </project>

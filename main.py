@@ -11,8 +11,8 @@ cursor = conn.cursor()
 class Page():
     '''этот класс создает страницу с объявлениями'''
 
-    def __init__(self, page=None):
-        self.page = page
+    def __init__(self):
+        self.page = ''
         self.count = 1
 
     def get_count(self, url_count):
@@ -43,50 +43,44 @@ class Product():
     '''этот класс получает все аттрибуты объявления'''
 
     def __init__(self):
-        self.id = ''
-        self.link = ''
-        self.deal_type = ''
-        self.address = ''
-        self.price_byn = ''
-        self.price_usd = ''
-        self.name = ''
-        self.images = ''
-        self.name_object = ''
+        self.products_attrs = {}
+
         # self.phone = phone
 
     def get_products_attrs(self, attrs):
         '''на вход получает аттрибуты объявления в формате json и присваивает их екземпляру класса'''
-        self.id = attrs['ad_id']
-        self.link = attrs['ad_link']
+        self.products_attrs['id']=attrs['ad_id']
+        self.products_attrs['link']=attrs['ad_link']
+        #self.id = attrs['ad_id']
+        #self.link = attrs['ad_link']
         # определяем тип сделки:
         if attrs['type'] == 'sell':
-            self.deal_type = 'Продажа'
+            self.products_attrs['deal_type'] = 'Продажа'
         else:
             print(attrs['type'])  # это строка на время разработки и теста
         for i in attrs['account_parameters']:
             if i['p'] == 'name':
-                self.name = i['v']
+                self.products_attrs['name'] = i['v']
             elif i['p'] == 'address':
-                self.address = i['v']
+                self.products_attrs['address'] = i['v']
 
         # определяем название объявления:
-        self.name_object = attrs['subject']
+        self.products_attrs['name_object'] = attrs['subject']
 
         # определяем цену:
         if attrs['price_byn'] == '0':
-            self.price_byn = 'Договорная'
-            self.price_usd = None
+            self.products_attrs['price_byn'] = 'Договорная'
         else:
-            self.price_byn = int(attrs['price_byn']) / 100
-            self.price_usd = int(attrs['price_usd']) / 100
+            self.products_attrs['price_byn'] = int(attrs['price_byn']) / 100
+            self.products_attrs['price_usd'] = int(attrs['price_usd']) / 100
         # определяем фото:
         try:
             id_images = attrs['images'][0]['id']
             pre_id_images = id_images[0:2]
-            self.images = f'https://yams.kufar.by/api/v1/kufar-ads/images/{pre_id_images}/{id_images}.jpg?rule=gallery'
+            self.products_attrs['images'] = f'https://yams.kufar.by/api/v1/kufar-ads/images/{pre_id_images}/{id_images}.jpg?rule=gallery'
 
         except:
-            self.images = 'Фото отсутствует'
+            self.products_attrs['images'] = 'Фото отсутствует'
             # определяем телефон:
             # get_phone = \
             # requests.get(f'https://cre-api-v2.kufar.by/items-search/v1/engine/v1/item/161719993/phone')
@@ -127,12 +121,21 @@ class Operator():
         conn = sqlite3.connect('products.db')
         # Создаём курсор:
         cursor = conn.cursor()
-        cursor.execute(f'''INSERT INTO {self.chat_id}(product_id,
-                                                            name, link, address, price_byn, price_usd, deal_type) VALUES (?,?,?,?,?,?,?)''',
-                       (
-                           product.id, product.name, product.link, product.address, product.price_byn,
-                           product.price_usd,
-                           product.deal_type))
+        try:
+            cursor.execute(f'''INSERT INTO {self.chat_id}(product_id,
+                                                                name, link, address, price_byn, price_usd, deal_type) VALUES (?,?,?,?,?,?,?)''',
+                           (
+                               product.products_attrs["id"], product.products_attrs["name"], product.products_attrs["link"],
+                               product.products_attrs["address"], product.products_attrs["price_byn"],
+                               product.products_attrs["price_usd"], product.products_attrs["deal_type"]))
+        except KeyError:
+            cursor.execute(f'''INSERT INTO {self.chat_id}(product_id,
+                                                                            name, link, address, price_byn, deal_type) VALUES (?,?,?,?,?,?)''',
+                           (
+                               product.products_attrs["id"], product.products_attrs["name"],
+                               product.products_attrs["link"],
+                               product.products_attrs["address"], product.products_attrs["price_byn"],
+                               product.products_attrs["deal_type"]))
         conn.commit()
 
     def get_idies(self):
