@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена.">
+    <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="переделан init в Product&#10;проблема со стопом не решена.">
+      <change afterPath="$PROJECT_DIR$/variant_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prob.py" beforeDir="false" afterPath="$PROJECT_DIR$/prob.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products.db" beforeDir="false" afterPath="$PROJECT_DIR$/products.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/telegram.py" beforeDir="false" afterPath="$PROJECT_DIR$/telegram.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="var_2" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -32,7 +57,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.telegram">
+  <component name="RunManager" selected="Python.variant_2">
     <configuration name="prob" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Kufar_pars_ispr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -96,8 +121,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="variant_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Kufar_pars_ispr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/variant_2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.variant_2" />
         <item itemvalue="Python.telegram" />
         <item itemvalue="Python.prob" />
         <item itemvalue="Python.teleg" />
@@ -127,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676626184704</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="переделан init в Product&#10;проблема со стопом не решена.">
+      <created>1676891515418</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676891515418</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,7 +189,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="var_2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -147,6 +213,7 @@
     </ignored-roots>
     <MESSAGE value="подправил категории таблицы.&#10;проблема со стопом не решена.&#10;при первом запуске перегружается сервак" />
     <MESSAGE value="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена." />
-    <option name="LAST_COMMIT_MESSAGE" value="добавлена категория &quot;Квартриры&quot;(по г.Новополоцку)&#10;проблема со стопом не решена." />
+    <MESSAGE value="переделан init в Product&#10;проблема со стопом не решена." />
+    <option name="LAST_COMMIT_MESSAGE" value="переделан init в Product&#10;проблема со стопом не решена." />
   </component>
 </project>

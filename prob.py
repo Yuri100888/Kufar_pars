@@ -15,23 +15,25 @@ headers = {
 # pprint(page.json())
 # самокаты https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=4160&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6M30%3D&lang=ru&size=43
 # url_1 = "https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=4160&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6M30%3D&lang=ru&size=1"
-url_1 = "https://www.kufar.by/l/elektrotransport"
+url_1 = f"https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&lang=ru&size=30&typ=sell"
 
-r = requests.get(url_1, headers=headers).text
-soup = BeautifulSoup(r, 'html.parser')
-re = soup.find_all(class_='styles_content__right__ddauo')
-re1 = soup.find_all('img')
-re2 = soup.find_all(class_="styles_wrapper__IMYdY")
 
-for i in re2:
-    product = {}
-    product['link'] = i['href']
-    product['id'] = i['href'].split('/')[-1].split('?')[0]
-    img = i.find_next(class_="styles_image__CTXvl lazyload")
-    product['img'] = img['data-src']
-    product['name'] = img['alt']
-    product['price']=i.find_next(class_="styles_price__tiO8k").text
-    print(f"{product}\n\n")
+r = requests.get(url_1, headers=headers).json()
+print(r)
+# soup = BeautifulSoup(r, 'html.parser')
+# re = soup.find_all(class_='styles_content__right__ddauo')
+# re1 = soup.find_all('img')
+# re2 = soup.find_all(class_="styles_wrapper__IMYdY")
+#
+# for i in re2:
+#     product = {}
+#     product['link'] = i['href']
+#     product['id'] = i['href'].split('/')[-1].split('?')[0]
+#     img = i.find_next(class_="styles_image__CTXvl lazyload")
+#     product['img'] = img['data-src']
+#     product['name'] = img['alt']
+#     product['price']=i.find_next(class_="styles_price__tiO8k").text
+#     print(f"{product}\n\n")
 # print(re)
 # print(len(re2))
 # user_data = {"us_id": "",
