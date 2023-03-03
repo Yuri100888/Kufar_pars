@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef8798c-2fb4-44d0-a1c9-34b57f889310" name="Changes" comment="переделан init в Product&#10;проблема со стопом не решена.">
-      <change afterPath="$PROJECT_DIR$/tele_var_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products.db" beforeDir="false" afterPath="$PROJECT_DIR$/products.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tele_var_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/tele_var_2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/variant_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/variant_2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -210,7 +210,21 @@
       <option name="project" value="LOCAL" />
       <updated>1677233004706</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="переделан init в Product&#10;проблема со стопом не решена.">
+      <created>1677680952960</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677680952960</updated>
+    </task>
+    <task id="LOCAL-00006" summary="переделан init в Product&#10;проблема со стопом не решена.">
+      <created>1677680958896</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677680958896</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

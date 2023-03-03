@@ -43,30 +43,25 @@ def operation(message):
             obj.get_data_base_list(obj.name_tab) # получаем список квартир в базе
             apart = variant_2.Apartament(o) # создаём продукт как отдельный продукт
             apart.get_products_attrs()
-            print(obj.data_base_list)
-            if apart.id not in obj.data_base_list_id:
+            # print(obj.data_base_list)
+            print(apart.id)
+            if str(apart.id) not in obj.data_base_list_id:
+                print(obj.data_base_list_id)
                 obj.write_to_table(obj.name_tab, apart)
-                try:
-                    bot.send_message(message.chat.id,
-                                     f"{apart.products_attrs['img']}\n"
-                                     f"{apart.products_attrs['name_object']}\n"
-                                     f"{apart.products_attrs['address']}\n"
-                                     f"{apart.products_attrs['rooms']} комн.\n"
-                                     f"{apart.products_attrs['size']}м2\n"
-                                     f"{apart.products_attrs['floor']} этаж\n"
-                                     f"{apart.products_attrs['price_byn']}руб.\n"
-                                     f"{apart.products_attrs['price_usd']}$\n"
-                                     f"{apart.products_attrs['link']}\n\n")
-                except:
-                    bot.send_message(message.chat.id,
-                                     f"{apart.products_attrs['img']}\n"
-                                     f"{apart.products_attrs['name_object']}\n"
-                                     f"{apart.products_attrs['address']}\n"
-                                     f"{apart.products_attrs['rooms']} комн.\n"
-                                     f"{apart.products_attrs['size']}м2\n"
-                                     f"{apart.products_attrs['floor']} этаж\n"
-                                     f"{apart.products_attrs['price_byn']}\n"
-                                     f"{apart.products_attrs['link']}\n\n")
+                bot.send_message(message.chat.id,
+                                     f"{apart.img}\n"
+                                     f"{apart.name_object}\n"
+                                     f"{apart.address}\n"
+                                     f"{apart.rooms} комн.\n"
+                                     f"{apart.size}м2\n"
+                                     f"{apart.floor} этаж\n"
+                                     f"{apart.price_byn}руб.\n"
+                                     f"{apart.price_usd}$\n"
+                                     f"{apart.link}\n\n"
+                                 )
+
+            else:
+                continue
     bot.register_next_step_handler(msg, start)
 
 # Запускаем бота

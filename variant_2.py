@@ -40,7 +40,7 @@ class Category():
         # ____________________________
         for id in base_list:
             self.data_base_list[id[0]] = id[1]
-            self.data_base_list_id.append(id[0])
+            self.data_base_list_id.append(str(id[0]))
 
     def write_to_table(self, name_tab, product):
         '''добавления объявления в базу данных'''
@@ -158,9 +158,12 @@ class Apartament(Product):
                 self.floor = i['v']
     def get_products_attrs(self):
         super(Apartament, self).get_products_attrs()
-        self.products_attrs['rooms'] = self.rooms
-        self.products_attrs['size'] = self.size
-        self.products_attrs['floor'] = self.floor
+        try:
+            self.products_attrs['rooms'] = self.rooms
+            self.products_attrs['size'] = self.size
+            self.products_attrs['floor'] = self.floor
+        except Exception:
+            print(Exception)
 
 
         # _____________________________Пробы
