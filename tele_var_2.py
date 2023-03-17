@@ -43,10 +43,11 @@ def operation(message):
             obj.get_data_base_list(obj.name_tab) # получаем список квартир в базе
             apart = variant_2.Apartament(o) # создаём продукт как отдельный продукт
             apart.get_products_attrs()
+            print(apart.__dir__())
+
             # print(obj.data_base_list)
-            print(apart.id)
             if str(apart.id) not in obj.data_base_list_id:
-                print(obj.data_base_list_id)
+
                 obj.write_to_table(obj.name_tab, apart)
                 bot.send_message(message.chat.id,
                                      f"{apart.img}\n"

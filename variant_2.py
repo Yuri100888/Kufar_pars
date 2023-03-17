@@ -20,7 +20,6 @@ class Category():
         '''находим все товары (словарь товаров), имеющиеся в продаже '''
         self.page = requests.get(url).json()
 
-
     def create_table(self, name_tab):
         '''создаём таблицу для хранения товаров с их аттрибутами'''
         conn = sqlite3.connect('products.db')
@@ -71,13 +70,12 @@ class Category():
 
 
 class Apartaments(Category):
-    count_url = "https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/count?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&size=30&typ=sell"
+    count_url = "https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/count?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&prn=1000&size=30&sort=lst.d&typ=sell"
 
     def __init__(self, message):
         super().__init__()
         self.name_tab = f'apartaments_{message.chat.id}'
-        self.url = f"https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast&lang=ru&size={self.category_len}&typ=sell"
-
+        self.url = f"https://cre-api-v2.kufar.by/items-search/v1/engine/v1/search/rendered-paginated?cat=1010&cur=USD&gtsy=country-belarus~province-vitebskaja_oblast~locality-novopolock&lang=ru&size={self.category_len}&typ=sell"
 
     def write_to_table(self, name_tab, product):
         super().write_to_table(name_tab, product)
@@ -90,21 +88,20 @@ class Product:
         self.id = prod['ad_id']
         self.link = prod['ad_link']
         if prod['type'] == 'sell':
-            self.deal_type = 'Продажа' # тип сделки
+            self.deal_type = 'Продажа'       # тип сделки
         else:
-            self.deal_type = prod['type']  # это строка на время разработки и теста
+            self.deal_type = prod['type']    # это строка на время разработки и теста
         for i in prod['account_parameters']:
-            if i['p'] == 'name': # имя контактного лица
+            if i['p'] == 'name':             # имя контактного лица
                 self.name = i['v']
-            elif i['p'] == 'address': # адрес объекта
+            elif i['p'] == 'address':        # адрес объекта
                 self.address = i['v']
 
         # определяем название объявления:
-        self.name_object = prod['subject'] # название объявления
-
+        self.name_object = prod['subject']  # название объявления
 
         if self.product['price_byn'] == '0':
-            self.products_attrs['price_byn'] = 'Договорная'
+            self.price_byn = 'Договорная'
         else:
             self.price_byn = int(prod['price_byn']) / 100  # цена в рублях
             self.price_usd = int(prod['price_usd']) / 100  # цена в долларах
@@ -117,33 +114,23 @@ class Product:
         except:
             self.img = 'Фото отсутствует'
 
-
     def get_products_attrs(self):
         '''на вход получает аттрибуты объявления в формате json и присваивает их экземпляру класса'''
-        self.products_attrs['id'] = self.product['ad_id'] #определяем id объявления
-        self.products_attrs['link'] = self.product['ad_link'] #определяем ссылку на объявление
+        self.products_attrs['id'] = self.id      # id объявления
+        self.products_attrs['link'] = self.link  # ссылка на объявление
         # определяем тип сделки:
-        if self.product['type'] == 'sell':
-            self.products_attrs['deal_type'] = 'Продажа'
-        else:
-            print(self.product['type'])  # это строка на время разработки и теста
-        for i in self.product['account_parameters']:
-            if i['p'] == 'name': # опрделяем имя контактного лица
-                self.products_attrs['name'] = i['v']
-            elif i['p'] == 'address': # определяем адрес объекта
-                self.products_attrs['address'] = i['v']
+        self.products_attrs['deal_type'] = self.deal_type # тип объявления
+        self.products_attrs['name'] = self.name           # контактное лицо
+        self.products_attrs['address'] = self.address     # адрес
 
         # определяем название объявления:
-        self.products_attrs['name_object'] = self.product['subject'] # опрделяем название объявления
+        self.products_attrs['name_object'] = self.name_object  # название объявления
         # определяем цену:
-        if self.product['price_byn'] == '0':
-            self.products_attrs['price_byn'] = 'Договорная'
-        else:
-            self.products_attrs['price_byn'] = self.price_byn
-            self.products_attrs['price_usd'] = self.price_usd
-        # определяем фото:
-        self.products_attrs[
-            'img'] = self.img
+        self.products_attrs['price_byn'] = self.price_byn      # цена
+        if self.price_byn != 'Договорная':
+            self.products_attrs['price_byn'] = f'{self.price_byn}руб.' # цена в рублях
+            self.products_attrs['price_usd'] = f'{self.price_usd}$'    # цена в $
+
 
 
 class Apartament(Product):
@@ -156,15 +143,15 @@ class Apartament(Product):
                 self.size = i['v']
             elif i['p'] == 'floor':  # определяем этаж квартиры
                 self.floor = i['v']
+
     def get_products_attrs(self):
         super(Apartament, self).get_products_attrs()
         try:
-            self.products_attrs['rooms'] = self.rooms
-            self.products_attrs['size'] = self.size
-            self.products_attrs['floor'] = self.floor
+            self.products_attrs['rooms'] = f'{self.rooms}комн.'
+            self.products_attrs['size'] = f'{self.size}м2'
+            self.products_attrs['floor'] = f'{self.floor} этаж'
         except Exception:
             print(Exception)
-
 
         # _____________________________Пробы
 
@@ -190,7 +177,6 @@ def get_list_category(url):
     '''находим все товары (словарь товаров), имеющиеся в продаже '''
     page = requests.get(url).json()
     print(page)
-
 
 # get_data_base_list("tab_1353621251")
 # get_list_category(
